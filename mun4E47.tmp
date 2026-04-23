@@ -1,0 +1,185 @@
+[gd_scene load_steps=14 format=3 uid="uid://b7p8pr17wvx6f"]
+
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_i4hpm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfjww"]
+albedo_color = Color(0.99349, 0.549876, 0.722957, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a0i2g"]
+material = SubResource("StandardMaterial3D_vfjww")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7janr"]
+resource_local_to_scene = true
+size = Vector3(2, 10, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_26iq8"]
+resource_local_to_scene = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7875j"]
+albedo_color = Color(0.426617, 0.870028, 0.520547, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l67v0"]
+material = SubResource("StandardMaterial3D_7875j")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_06sx0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_co326"]
+albedo_color = Color(0, 0.875493, 0.524015, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4y561"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pykd0"]
+sky_top_color = Color(0.577, 0.714033, 0.869252, 1)
+sky_horizon_color = Color(0.919964, 0.898924, 0.8909, 1)
+
+[sub_resource type="Sky" id="Sky_fbefq"]
+sky_material = SubResource("ProceduralSkyMaterial_pykd0")
+
+[sub_resource type="Environment" id="Environment_fk7dr"]
+background_mode = 2
+sky = SubResource("Sky_fbefq")
+
+[node name="mundo" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.353894, 0)
+
+[node name="pilar" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0592651, 7.64881, 0.0892372)
+
+[node name="pilar_mesh" type="MeshInstance3D" parent="Node3D/pilar"]
+transform = Transform3D(2, 0, 0, 0, 10, 0, 0, 0, 2, 0, -4.256, 0)
+mesh = SubResource("BoxMesh_a0i2g")
+skeleton = NodePath("../../..")
+
+[node name="pilar_colision" type="CollisionShape3D" parent="Node3D/pilar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.256, 0)
+shape = SubResource("BoxShape3D_7janr")
+
+[node name="pilar2" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.5875, 7.64881, -52.8068)
+
+[node name="pilar_mesh" type="MeshInstance3D" parent="Node3D/pilar2"]
+transform = Transform3D(2, 0, 0, 0, 10, 0, 0, 0, 2, 0, -4.256, 0)
+mesh = SubResource("BoxMesh_a0i2g")
+skeleton = NodePath("../../..")
+
+[node name="pilar_colision" type="CollisionShape3D" parent="Node3D/pilar2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.256, 0)
+shape = SubResource("BoxShape3D_7janr")
+
+[node name="pilar3" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.6544, 7.64881, -52.6821)
+
+[node name="pilar_mesh" type="MeshInstance3D" parent="Node3D/pilar3"]
+transform = Transform3D(2, 0, 0, 0, 10, 0, 0, 0, 2, 0, -4.256, 0)
+mesh = SubResource("BoxMesh_a0i2g")
+skeleton = NodePath("../../..")
+
+[node name="pilar_colision" type="CollisionShape3D" parent="Node3D/pilar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.256, 0)
+shape = SubResource("BoxShape3D_7janr")
+
+[node name="pilar4" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.8215, 7.64881, 45.3783)
+
+[node name="pilar_mesh" type="MeshInstance3D" parent="Node3D/pilar4"]
+transform = Transform3D(2, 0, 0, 0, 10, 0, 0, 0, 2, 0, -4.256, 0)
+mesh = SubResource("BoxMesh_a0i2g")
+skeleton = NodePath("../../..")
+
+[node name="pilar_colision" type="CollisionShape3D" parent="Node3D/pilar4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.256, 0)
+shape = SubResource("BoxShape3D_7janr")
+
+[node name="pilar5" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.4811, 7.64881, 45.2329)
+
+[node name="pilar_mesh" type="MeshInstance3D" parent="Node3D/pilar5"]
+transform = Transform3D(2, 0, 0, 0, 10, 0, 0, 0, 2, 0, -4.256, 0)
+mesh = SubResource("BoxMesh_a0i2g")
+skeleton = NodePath("../../..")
+
+[node name="pilar_colision" type="CollisionShape3D" parent="Node3D/pilar5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.256, 0)
+shape = SubResource("BoxShape3D_7janr")
+
+[node name="pilar6" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.3596, 7.64881, 23.5656)
+
+[node name="pilar_mesh" type="MeshInstance3D" parent="Node3D/pilar6"]
+transform = Transform3D(2, 0, 0, 0, 10, 0, 0, 0, 2, 0, -4.256, 0)
+mesh = SubResource("BoxMesh_a0i2g")
+skeleton = NodePath("../../..")
+
+[node name="pilar_colision" type="CollisionShape3D" parent="Node3D/pilar6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.256, 0)
+shape = SubResource("BoxShape3D_7janr")
+
+[node name="pilar7" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5546, 7.64881, 23.8564)
+
+[node name="pilar_mesh" type="MeshInstance3D" parent="Node3D/pilar7"]
+transform = Transform3D(2, 0, 0, 0, 10, 0, 0, 0, 2, 0, -4.256, 0)
+mesh = SubResource("BoxMesh_a0i2g")
+skeleton = NodePath("../../..")
+
+[node name="pilar_colision" type="CollisionShape3D" parent="Node3D/pilar7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.256, 0)
+shape = SubResource("BoxShape3D_7janr")
+
+[node name="pilar8" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.7, 7.64881, -27.767)
+
+[node name="pilar_mesh" type="MeshInstance3D" parent="Node3D/pilar8"]
+transform = Transform3D(2, 0, 0, 0, 10, 0, 0, 0, 2, 0, -4.256, 0)
+mesh = SubResource("BoxMesh_a0i2g")
+skeleton = NodePath("../../..")
+
+[node name="pilar_colision" type="CollisionShape3D" parent="Node3D/pilar8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.256, 0)
+shape = SubResource("BoxShape3D_7janr")
+
+[node name="pilar9" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.76, 7.64881, -28.3486)
+
+[node name="pilar_mesh" type="MeshInstance3D" parent="Node3D/pilar9"]
+transform = Transform3D(2, 0, 0, 0, 10, 0, 0, 0, 2, 0, -4.256, 0)
+mesh = SubResource("BoxMesh_a0i2g")
+skeleton = NodePath("../../..")
+
+[node name="pilar_colision" type="CollisionShape3D" parent="Node3D/pilar9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.256, 0)
+shape = SubResource("BoxShape3D_7janr")
+
+[node name="piso" type="StaticBody3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0.523712, -51.9834, -3.78811)
+
+[node name="piso_colision" type="CollisionShape3D" parent="piso"]
+shape = SubResource("BoxShape3D_26iq8")
+
+[node name="piso_mesh" type="MeshInstance3D" parent="piso"]
+mesh = SubResource("BoxMesh_l67v0")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.985235, 0.171207, 0, -0.171207, 0.985235, 0, 1.04423, 10.1626)
+current = true
+fov = 81.7771
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.5622)
+script = ExtResource("1_i4hpm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_06sx0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+material_override = SubResource("StandardMaterial3D_co326")
+mesh = SubResource("CapsuleMesh_4y561")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fk7dr")
+
+[node name="Node" type="Node" parent="."]
