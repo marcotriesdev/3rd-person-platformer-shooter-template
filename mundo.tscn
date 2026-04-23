@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b7p8pr17wvx6f"]
+[gd_scene load_steps=42 format=3 uid="uid://b7p8pr17wvx6f"]
 
 [ext_resource type="Resource" uid="uid://ca45noqewsyvp" path="res://addons/sphynx_motion_blur_toolkit/guertin/shader_stages/guertin_blur_stage.tres" id="1_742om"]
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_i4hpm"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://addons/sphynx_motion_blur_toolkit/guertin/guertin_motion_blur.gd" id="5_ciagt"]
 [ext_resource type="Resource" uid="uid://dipvwksvqb3dm" path="res://addons/sphynx_motion_blur_toolkit/guertin/shader_stages/guertin_tile_max_x_stage.tres" id="6_jdwwl"]
 [ext_resource type="Resource" uid="uid://bxfg45ubc2pv7" path="res://addons/sphynx_motion_blur_toolkit/guertin/shader_stages/guertin_tile_max_y_stage.tres" id="7_ojf86"]
+[ext_resource type="Script" path="res://piso.gd" id="8_0j8bp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pykd0"]
 sky_top_color = Color(0.577, 0.714033, 0.869252, 1)
@@ -424,6 +425,7 @@ shape = SubResource("BoxShape3D_7janr")
 
 [node name="piso" type="StaticBody3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0.523712, -51.9834, -3.78811)
+script = ExtResource("8_0j8bp")
 
 [node name="piso_colision" type="CollisionShape3D" parent="piso"]
 shape = SubResource("BoxShape3D_26iq8")
