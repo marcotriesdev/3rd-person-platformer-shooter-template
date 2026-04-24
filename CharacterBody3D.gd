@@ -20,7 +20,7 @@ var resetting_view = false
 func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	print("listo")
+	
 
 func center_view():
 	if resetting_view and global_rotation != Vector3.ZERO:
@@ -29,7 +29,7 @@ func center_view():
 	
 
 func rotate_with_joystick():
-	print("resetting view: "+ str(resetting_view))
+	#print("resetting view: "+ str(resetting_view))
 	var look = Input.get_vector("right_stick -x","right_stick +x","right_stick -y","right_stick +y")
 	rotate_y(look.x*-0.1)
 	
@@ -47,6 +47,14 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		var clamped = clamp(event.relative.x,-rotate_clamp,rotate_clamp)
 		rotate_y(-clamped * 0.01)
+		print(event.relative.y)
+		camera.rotation.x -= event.relative.y * 0.005
+		camera.rotation.x = clamp(
+			camera.rotation.x,
+			deg_to_rad(-80),
+			deg_to_rad(80)
+		)
+		
 
 func movement(delta):
 	
@@ -59,8 +67,8 @@ func movement(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("jump") and is_on_floor():
+	# jump duhhh
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor() or Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
 	# SPRINTING
@@ -71,8 +79,7 @@ func movement(delta):
 	if Input.is_action_just_pressed("sprint") and Global.energy_var > 0:
 		timer.start()
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
