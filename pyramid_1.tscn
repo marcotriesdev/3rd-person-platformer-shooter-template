@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1h4xqfvceueh"]
+
+[ext_resource type="ArrayMesh" uid="uid://bvpgu5xj44vfb" path="res://pyramid/model.obj" id="1_jw8wc"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c2p31"]
+points = PackedVector3Array(-0.300978, -0.1296, -0.305172, -0.293074, -0.12468, 0.30092, -0.071562, 0.22608, -0.0652793, 0.300516, -0.121974, -0.292692, 0.0407034, -0.143457, 0.370285, 0.0736668, 0.228925, 0.0702167, 0.300516, -0.121974, 0.296492, -0.0398177, -0.143457, -0.366485, -0.342829, -0.132664, 0.0345264, 0.073043, 0.22747, -0.0658347, -0.0715914, 0.226149, 0.0691068, 0.363143, -0.131899, -0.044112, -0.0398177, -0.0743049, -0.33194, 0.0407034, -0.0743049, 0.33574, 0.351569, -0.0973425, -0.044112, -0.333, -0.106024, -0.0404005, -0.332912, -0.105981, 0.0335839, 0.246829, -0.0415104, -0.249727, -0.245943, -0.0415104, -0.249727, -0.0398177, -0.12042, -0.366485, -0.220607, -0.00874969, 0.228089, 0.0407034, -0.12042, 0.370285, -0.231634, -0.0192879, 0.228827, 0.221492, -0.00874969, 0.228089, -0.341263, -0.131794, -0.0414488, 0.363143, -0.12042, -0.044112)
+
+[node name="pyramid 1" type="Node3D"]
+
+[node name="Model" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 12.7949, 0)
+mesh = ExtResource("1_jw8wc")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 12.7949, 0)
+shape = SubResource("ConvexPolygonShape3D_c2p31")

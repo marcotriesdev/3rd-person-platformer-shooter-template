@@ -4,7 +4,8 @@ extends Label
 @onready var animation = $"../../AnimationPlayer"
 @onready var x = $"../X"
 @onready var debug = $active_menu
-@onready var world = $"../../.."
+@onready var world2 = $"../../.."
+@onready var world = %WorldEnvironment
 var xbutton = false
 var exit = false
 var settings = false
@@ -19,7 +20,7 @@ var current_gui := 0
 var sizemult := 1.5 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	animation.speed_scale = 3.0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +32,10 @@ func _process(delta):
 
 
 	if get_tree().paused:
-		#world.visible = false
+		world.camera_attributes.dof_blur_far_transition = lerpf(world.camera_attributes.dof_blur_far_transition,
+																-1,0.05)
+		world.camera_attributes.exposure_multiplier = lerpf(world.camera_attributes.exposure_multiplier,1.0,
+																0.3)
 		if Input.is_action_just_pressed("enter"):
 			match current_gui:
 				0:
@@ -64,7 +68,10 @@ func _process(delta):
 				i += 1 
 			gui_array[current_gui].add_theme_font_size_override("font_size",89)
 	else:
-		#world.visible = true
+		world.camera_attributes.dof_blur_far_transition = lerpf(world.camera_attributes.dof_blur_far_transition,
+																Global.dof,0.3)
+		world.camera_attributes.exposure_multiplier = lerpf(world.camera_attributes.exposure_multiplier,1.4,
+																0.3)
 		pass
 		
 	if Input.is_action_just_pressed("pause"):

@@ -4,6 +4,7 @@ extends Node
 
 var energy_var = 100
 
+var dof
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,7 +17,7 @@ func update_cam_position(cam,player):
 	cam.global_position.z = lerp(cam.global_position.z,player.global_position.z,0.2)
 	cam.global_position.y = lerp(cam.global_position.y,player.global_position.y,0.05)
 	#cam.global_rotation.y = lerp_angle(cam.global_rotation.y,player.global_rotation.y,0.8)
-	cam.global_rotation.y = player.global_rotation.y
+	cam.global_rotation.y = lerp_angle(cam.global_rotation.y,player.global_rotation.y,0.08)
 	
 func energy_regen(regen):
 	
@@ -31,7 +32,8 @@ func energy_label(label,progress):
 	
 func energy_drain(drain):
 	
-	energy_var -= drain
+	if energy_var > 0:
+		energy_var -= drain
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

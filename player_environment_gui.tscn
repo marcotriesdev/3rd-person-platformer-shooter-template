@@ -1,0 +1,494 @@
+[gd_scene load_steps=35 format=3 uid="uid://cwh0phmvb7xpi"]
+
+[ext_resource type="Resource" uid="uid://ca45noqewsyvp" path="res://addons/sphynx_motion_blur_toolkit/guertin/shader_stages/guertin_blur_stage.tres" id="1_rdg4b"]
+[ext_resource type="Resource" uid="uid://cvb65hfs2lrxo" path="res://addons/sphynx_motion_blur_toolkit/guertin/shader_stages/guertin_neighbor_max_stage.tres" id="2_itjsa"]
+[ext_resource type="Resource" uid="uid://bidsfymvdyhek" path="res://addons/sphynx_motion_blur_toolkit/guertin/shader_stages/guertin_overlay_stage.tres" id="3_mg8v3"]
+[ext_resource type="Resource" uid="uid://c8ulad7utgrg7" path="res://addons/sphynx_motion_blur_toolkit/pre_blur_processing/shader_stages/pre_blur_processing_stage.tres" id="4_uqcsk"]
+[ext_resource type="Script" path="res://addons/sphynx_motion_blur_toolkit/guertin/guertin_motion_blur.gd" id="5_te1yk"]
+[ext_resource type="Resource" uid="uid://dipvwksvqb3dm" path="res://addons/sphynx_motion_blur_toolkit/guertin/shader_stages/guertin_tile_max_x_stage.tres" id="6_oheg1"]
+[ext_resource type="Resource" uid="uid://bxfg45ubc2pv7" path="res://addons/sphynx_motion_blur_toolkit/guertin/shader_stages/guertin_tile_max_y_stage.tres" id="7_jxe0g"]
+[ext_resource type="Script" path="res://world_environment.gd" id="8_h7d8w"]
+[ext_resource type="Script" path="res://Label.gd" id="9_w58kb"]
+[ext_resource type="Script" path="res://fps.gd" id="10_4nbgp"]
+[ext_resource type="Script" path="res://crosshair.gd" id="11_dq3fm"]
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="12_cqwac"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pykd0"]
+sky_top_color = Color(0.577, 0.714033, 0.869252, 1)
+sky_horizon_color = Color(0.919964, 0.898924, 0.8909, 1)
+
+[sub_resource type="Sky" id="Sky_fbefq"]
+sky_material = SubResource("ProceduralSkyMaterial_pykd0")
+
+[sub_resource type="Environment" id="Environment_fk7dr"]
+background_mode = 2
+sky = SubResource("Sky_fbefq")
+tonemap_mode = 2
+tonemap_exposure = 1.09
+ssr_depth_tolerance = 0.01
+ssao_enabled = true
+sdfgi_enabled = true
+sdfgi_cascades = 1
+sdfgi_energy = 0.38
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.39
+glow_strength = 0.39
+glow_bloom = 0.15
+glow_blend_mode = 0
+glow_hdr_threshold = 0.13
+glow_hdr_scale = 1.37
+fog_light_color = Color(1, 1, 1, 1)
+fog_light_energy = 0.49
+fog_sun_scatter = 0.94
+fog_density = 0.0
+fog_sky_affect = 0.41
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_emission_energy = 0.0
+volumetric_fog_gi_inject = 10.23
+volumetric_fog_anisotropy = 0.37
+volumetric_fog_length = 958.64
+volumetric_fog_detail_spread = 2.14355
+volumetric_fog_ambient_inject = 16.0
+volumetric_fog_sky_affect = 0.168
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ackrl"]
+exposure_multiplier = 1.634
+auto_exposure_enabled = true
+auto_exposure_speed = 1.13
+dof_blur_far_distance = 8.14
+dof_blur_far_transition = 319.66
+dof_blur_near_distance = 5.77
+dof_blur_near_transition = 6.4
+dof_blur_amount = 0.29
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_qo6w6"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = true
+needs_normal_roughness = false
+script = ExtResource("5_te1yk")
+blur_stage = ExtResource("1_rdg4b")
+overlay_stage = ExtResource("3_mg8v3")
+tile_max_x_stage = ExtResource("6_oheg1")
+tile_max_y_stage = ExtResource("7_jxe0g")
+neighbor_max_stage = ExtResource("2_itjsa")
+tile_size = 20
+samples = 4
+intensity = 0.767
+center_fade = 0.0
+framerate_independent = true
+uncapped_independence = false
+target_constant_framerate = 30.0
+use_custom_curve = false
+support_fsr2 = true
+pre_blur_processor_stage = ExtResource("4_uqcsk")
+camera_rotation_multiplier = 1.0
+camera_rotation_lower_threshold = 0.0
+camera_rotation_upper_threshold = 0.0
+camera_movement_multiplier = 1.0
+camera_movement_lower_threshold = 0.0
+camera_movement_upper_threshold = 0.0
+object_movement_multiplier = 1.0
+object_movement_lower_threshold = 0.0
+object_movement_upper_threshold = 0.0
+debug = false
+shader_stages/blur_stage = ExtResource("1_rdg4b")
+shader_stages/overlay_stage = ExtResource("3_mg8v3")
+shader_stages/tile_max_x_stage = ExtResource("6_oheg1")
+shader_stages/tile_max_y_stage = ExtResource("7_jxe0g")
+shader_stages/neighbor_max_stage = ExtResource("2_itjsa")
+shader_stages/pre_blur_processor_stage = ExtResource("4_uqcsk")
+
+[sub_resource type="Compositor" id="Compositor_xgjra"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_qo6w6")])
+
+[sub_resource type="Animation" id="Animation_tdqw0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../menu:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.01, 0.01)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../menu_label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-329, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../options:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m3ida"]
+resource_name = "close_menu"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../menu:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.065, 1.065), Vector2(0.01, 0.01)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../menu_label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(22, 0), Vector2(-329, 0), Vector2(-329, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../options:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(417, -17), Vector2(20, -17)]
+}
+
+[sub_resource type="Animation" id="Animation_q7e1s"]
+resource_name = "open_menu"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../menu:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.01, 0.01), Vector2(1.065, 1.065)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../menu_label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-329, 0), Vector2(-329, 0), Vector2(22, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../options:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(422, -13)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8vm3g"]
+_data = {
+"RESET": SubResource("Animation_tdqw0"),
+"close_menu": SubResource("Animation_m3ida"),
+"open_menu": SubResource("Animation_q7e1s")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4thcu"]
+bg_color = Color(0.658911, 1.99743e-06, 9.62615e-08, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02wko"]
+bg_color = Color(0.272666, 0.619486, 0, 1)
+
+[sub_resource type="Theme" id="Theme_i43k5"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_4thcu")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_02wko")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5g1j"]
+bg_color = Color(0.099986, 0.099986, 0.099986, 0.403922)
+border_width_left = 5
+border_width_top = 4
+border_width_right = 3
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2l4e"]
+skew = Vector2(0, 0.105)
+border_width_left = 25
+border_width_right = 25
+border_blend = true
+corner_detail = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3q7qs"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6so18"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_06sx0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_co326"]
+albedo_color = Color(0, 0.875493, 0.524015, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4y561"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_u8ulr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rnewo"]
+
+[node name="Player_environment_gui" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+unique_name_in_owner = true
+environment = SubResource("Environment_fk7dr")
+camera_attributes = SubResource("CameraAttributesPractical_ackrl")
+compositor = SubResource("Compositor_xgjra")
+script = ExtResource("8_h7d8w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.850774, 0.316309, -0.41968, 0.525531, -0.512068, 0.679414, 0, -0.798583, -0.601885, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 0.985235, 0.171207, 0, -0.171207, 0.985235, 0, 0, 0)
+current = true
+fov = 45.6
+far = 138.48
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D"]
+process_mode = 3
+root_node = NodePath("../Node2D")
+libraries = {
+"": SubResource("AnimationLibrary_8vm3g")
+}
+
+[node name="menu" type="Node2D" parent="Camera3D"]
+process_mode = 3
+scale = Vector2(0.01, 0.01)
+
+[node name="PanelContainer" type="PanelContainer" parent="Camera3D/menu"]
+process_mode = 3
+offset_top = 1.0
+offset_right = 528.0
+offset_bottom = 563.0
+metadata/_edit_use_anchors_ = true
+
+[node name="menu_label" type="Node2D" parent="Camera3D"]
+process_mode = 3
+position = Vector2(-329, 0)
+
+[node name="Label" type="Label" parent="Camera3D/menu_label"]
+process_mode = 3
+offset_right = 325.0
+offset_bottom = 148.0
+theme_override_font_sizes/font_size = 108
+text = "MENU"
+metadata/_edit_use_anchors_ = true
+
+[node name="Node2D" type="CanvasLayer" parent="Camera3D"]
+process_mode = 3
+follow_viewport_enabled = true
+
+[node name="ProgressBar" type="ProgressBar" parent="Camera3D/Node2D"]
+process_mode = 3
+anchors_preset = -1
+anchor_top = 0.978704
+anchor_right = 1.61146
+anchor_bottom = 1.0037
+offset_left = 16.0
+offset_top = -56.0
+offset_right = 16.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.329951, 0.850646)
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme = SubResource("Theme_i43k5")
+value = 100.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Camera3D/Node2D"]
+process_mode = 3
+offset_left = 23.0
+offset_top = 1006.0
+offset_right = 1174.0
+offset_bottom = 1042.0
+theme_override_font_sizes/font_size = 31
+text = "PLACEHOLDER"
+horizontal_alignment = 1
+script = ExtResource("9_w58kb")
+metadata/_edit_use_anchors_ = true
+
+[node name="active_menu" type="Label" parent="Camera3D/Node2D/Label"]
+visible = false
+layout_mode = 0
+offset_left = 450.0
+offset_top = -570.0
+offset_right = 545.0
+offset_bottom = -547.0
+theme_override_font_sizes/font_size = 56
+text = "active menu"
+
+[node name="X" type="Label" parent="Camera3D/Node2D"]
+process_mode = 3
+visible = false
+offset_left = 533.0
+offset_top = -19.0
+offset_right = 578.0
+offset_bottom = 82.0
+mouse_filter = 1
+theme_override_font_sizes/font_size = 73
+theme_override_styles/normal = SubResource("StyleBoxFlat_h5g1j")
+text = "X"
+metadata/_edit_use_anchors_ = true
+
+[node name="options" type="Node2D" parent="Camera3D"]
+
+[node name="exit_label" type="Label" parent="Camera3D/options"]
+process_mode = 3
+offset_left = -407.87
+offset_top = 173.0
+offset_right = -140.87
+offset_bottom = 366.0
+scale = Vector2(1, 1.04)
+focus_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 81
+theme_override_styles/normal = SubResource("StyleBoxFlat_c2l4e")
+text = "Exit"
+metadata/_edit_use_anchors_ = true
+
+[node name="settings_label" type="Label" parent="Camera3D/options"]
+process_mode = 3
+offset_left = -407.0
+offset_top = 389.0
+offset_right = -49.0
+offset_bottom = 582.0
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 81
+theme_override_styles/normal = SubResource("StyleBoxFlat_c2l4e")
+text = "settings"
+metadata/_edit_use_anchors_ = true
+
+[node name="fps" type="Label" parent="Camera3D"]
+process_mode = 3
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.462745, 1, 0, 1)
+theme_override_font_sizes/font_size = 5
+script = ExtResource("10_4nbgp")
+metadata/_edit_use_anchors_ = true
+
+[node name="crosshair" type="Node2D" parent="Camera3D"]
+position = Vector2(960, 540)
+script = ExtResource("11_dq3fm")
+
+[node name="Line2D" type="Line2D" parent="Camera3D/crosshair"]
+material = SubResource("CanvasItemMaterial_3q7qs")
+points = PackedVector2Array(3, -19, 21, -5)
+width = 4.165
+default_color = Color(0.85216, 0.919756, 0, 0.364706)
+
+[node name="Line2D2" type="Line2D" parent="Camera3D/crosshair"]
+material = SubResource("CanvasItemMaterial_6so18")
+scale = Vector2(-1, 1)
+points = PackedVector2Array(3, -19, 21, -5)
+width = 4.165
+default_color = Color(0.85216, 0.919756, 0, 0.364706)
+
+[node name="Line2D3" type="Line2D" parent="Camera3D/crosshair"]
+material = SubResource("CanvasItemMaterial_6so18")
+scale = Vector2(1, -1)
+points = PackedVector2Array(3, -19, 21, -5)
+width = 4.165
+default_color = Color(0.85216, 0.919756, 0, 0.364706)
+
+[node name="Line2D4" type="Line2D" parent="Camera3D/crosshair"]
+material = SubResource("CanvasItemMaterial_6so18")
+scale = Vector2(-1, -1)
+points = PackedVector2Array(3, -19, 21, -5)
+width = 4.165
+default_color = Color(0.85216, 0.919756, 0, 0.364706)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("12_cqwac")
+rotate_clamp = 10
+regen = 0.03
+
+[node name="energy_timer" type="Timer" parent="CharacterBody3D"]
+wait_time = 0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_06sx0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+material_override = SubResource("StandardMaterial3D_co326")
+mesh = SubResource("CapsuleMesh_4y561")
+
+[node name="cam_pole" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99753, 1.33685, 4.60548)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/cam_pole"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0164332, 0.0720654)
+visible = false
+mesh = SubResource("CylinderMesh_u8ulr")
+skeleton = NodePath("../../../..")
+
+[node name="cam_pole2" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58507, 1.33685, 3.40147)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/cam_pole2"]
+visible = false
+mesh = SubResource("BoxMesh_rnewo")
+
+[connection signal="mouse_entered" from="Camera3D/Node2D/X" to="Camera3D/Node2D/Label" method="_on_x_mouse_entered"]
+[connection signal="mouse_exited" from="Camera3D/Node2D/X" to="Camera3D/Node2D/Label" method="_on_x_mouse_exited"]
+[connection signal="mouse_entered" from="Camera3D/options/exit_label" to="Camera3D/Node2D/Label" method="_on_exit_label_mouse_entered"]
+[connection signal="mouse_exited" from="Camera3D/options/exit_label" to="Camera3D/Node2D/Label" method="_on_exit_label_mouse_exited"]
+[connection signal="mouse_entered" from="Camera3D/options/settings_label" to="Camera3D/Node2D/Label" method="_on_settings_label_mouse_entered"]
+[connection signal="mouse_exited" from="Camera3D/options/settings_label" to="Camera3D/Node2D/Label" method="_on_settings_label_mouse_exited"]
+[connection signal="timeout" from="CharacterBody3D/energy_timer" to="CharacterBody3D" method="_on_energy_timer_timeout"]
